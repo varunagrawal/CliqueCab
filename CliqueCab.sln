@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CliqueCab", "CliqueCab\CliqueCab.csproj", "{DA0AEC53-2F80-457A-9046-16A59E0962AF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|ARM = Debug|ARM
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|ARM = Release|ARM
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DA0AEC53-2F80-457A-9046-16A59E0962AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA0AEC53-2F80-457A-9046-16A59E0962AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA0AEC53-2F80-457A-9046-16A59E0962AF}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{DA0AEC53-2F80-457A-9046-16A59E0962AF}.Debug|ARM.ActiveCfg = Debug|ARM
+		{DA0AEC53-2F80-457A-9046-16A59E0962AF}.Debug|ARM.Build.0 = Debug|ARM
+		{DA0AEC53-2F80-457A-9046-16A59E0962AF}.Debug|ARM.Deploy.0 = Debug|ARM
+		{DA0AEC53-2F80-457A-9046-16A59E0962AF}.Debug|x86.ActiveCfg = Debug|x86
+		{DA0AEC53-2F80-457A-9046-16A59E0962AF}.Debug|x86.Build.0 = Debug|x86
+		{DA0AEC53-2F80-457A-9046-16A59E0962AF}.Debug|x86.Deploy.0 = Debug|x86
+		{DA0AEC53-2F80-457A-9046-16A59E0962AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA0AEC53-2F80-457A-9046-16A59E0962AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA0AEC53-2F80-457A-9046-16A59E0962AF}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{DA0AEC53-2F80-457A-9046-16A59E0962AF}.Release|ARM.ActiveCfg = Release|ARM
+		{DA0AEC53-2F80-457A-9046-16A59E0962AF}.Release|ARM.Build.0 = Release|ARM
+		{DA0AEC53-2F80-457A-9046-16A59E0962AF}.Release|ARM.Deploy.0 = Release|ARM
+		{DA0AEC53-2F80-457A-9046-16A59E0962AF}.Release|x86.ActiveCfg = Release|x86
+		{DA0AEC53-2F80-457A-9046-16A59E0962AF}.Release|x86.Build.0 = Release|x86
+		{DA0AEC53-2F80-457A-9046-16A59E0962AF}.Release|x86.Deploy.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
