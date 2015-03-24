@@ -22,7 +22,7 @@ namespace CliqueCab
 	/// </summary>
 	public sealed partial class Login : Page
 	{
-		string Client_ID = "h2CYRccylaZtoCRBJrv7OjqbUsJ9kkxR"
+		string Client_ID = "h2CYRccylaZtoCRBJrv7OjqbUsJ9kkxR";
 		public Login()
 		{
 			this.InitializeComponent();
