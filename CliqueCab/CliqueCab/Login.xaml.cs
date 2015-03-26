@@ -28,6 +28,7 @@ namespace CliqueCab
 			this.InitializeComponent();
 		}
 
+
 		/// <summary>
 		/// Invoked when this page is about to be displayed in a Frame.
 		/// </summary>
@@ -52,6 +53,25 @@ namespace CliqueCab
 				string parameters = Uri.Substring(Uri.IndexOf("#") + 1);
 
 				string[] kvps = parameters.Split('&');
+
+				for (int i = 0; i < kvps.Length; i += 2)
+				{
+					switch (kvps[i])
+					{ 
+						case "access_token":
+							User.Access_Token = kvps[i + 1];
+							break;
+						case "token_type":
+							User.Token_Type = kvps[i + 1];
+							break;
+						case "expires_in":
+							User.Expires_In = kvps[i + 1];
+							break;
+						case "scope":
+							User.Scope = kvps[i + 1];
+							break;
+					}
+				}
 			}
 		}
 	}
