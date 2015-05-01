@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Net.Http;
 using Windows.Data.Json;
+using Newtonsoft.Json;
 
 namespace CliqueCab
 {
@@ -43,8 +44,8 @@ namespace CliqueCab
 			if(response.StatusCode == HttpStatusCode.OK)
 			{
 				string result = await response.Content.ReadAsStringAsync();
-				
-				return new User(result);
+
+				return JsonConvert.DeserializeObject<User>(result);
 			}
 
 			return null;

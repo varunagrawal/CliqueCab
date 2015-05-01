@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -34,7 +35,7 @@ namespace CliqueCab
         /// </summary>
         /// <param name="e">Event data that describes how this page was reached.
         /// This parameter is typically used to configure the page.</param>
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
 			if (User.Access_Token == null || DateTime.Now.Subtract(DateTime.Parse(User.Expires_In)).Ticks > 0)
 			{
@@ -45,12 +46,33 @@ namespace CliqueCab
 			{
 				LoginBtn.Visibility = Visibility.Collapsed;
 				GetCabsPanel.Visibility = Visibility.Visible;
+
+				Uber uber = new Uber();
+				User user = await uber.UserProfile();
+
+				UserName.Text = string.Format("Hi there, {0}!", user.First_Name);
 			}
+
         }
 
 		private void LoginBtn_Click(object sender, RoutedEventArgs e)
 		{
 			this.Frame.Navigate(typeof(Login));
+		}
+
+		private void btnGetCabs_Click(object sender, RoutedEventArgs e)
+		{
+			long passengers = 1;
+			try
+			{
+				passengers = Int64.Parse(txtPassengers.Text);
+			}
+			catch(Exception ex)
+			{
+				MessageDialog md = new MessageDialog("Invalid Passenger Count", "Passengers Error");
+				md.ShowAsync();
+			}
+			this.Frame.Navigate(typeof(Cabs), passengers);
 		}
     }
 }
