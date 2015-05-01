@@ -8,7 +8,20 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
+	<Grid>
+		<TextBlock Margin="10,10,10,0" TextWrapping="Wrap" Text="CliqueCab" VerticalAlignment="Top" Height="63" 
+		 TextAlignment="Center"
+				   FontSize="40" />
 
-    </Grid>
+		<Button x:Name="LoginBtn" Content="Login" Visibility="Visible" Click="LoginBtn_Click" Margin="10,255,0,299" Width="380" Height="86"/>
+
+		<StackPanel x:Name="GetCabsPanel" Margin="0,78,0,0">
+			<TextBox x:Name="txtPassengers" InputScope="Number" Text="0" HorizontalAlignment="Center" 
+			 TextAlignment="Center" Margin="10,100,10,0" Width="380" Height="96" FontSize="60" />
+			<Button x:Name="btnGetCabs" Content="Get Cabs" HorizontalAlignment="Center" Width="380" Margin="10,50,10,0" Height="98"
+					FontSize="30"/>
+
+		</StackPanel>
+
+	</Grid>
 </Page>
