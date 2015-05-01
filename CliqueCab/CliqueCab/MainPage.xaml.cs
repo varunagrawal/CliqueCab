@@ -36,13 +36,21 @@ namespace CliqueCab
         /// This parameter is typically used to configure the page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            // TODO: Prepare page for display here.
-
-            // TODO: If your application contains multiple pages, ensure that you are
-            // handling the hardware Back button by registering for the
-            // Windows.Phone.UI.Input.HardwareButtons.BackPressed event.
-            // If you are using the NavigationHelper provided by some templates,
-            // this event is handled for you.
+			if (User.Access_Token == null || DateTime.Now.Subtract(DateTime.Parse(User.Expires_In)).Ticks > 0)
+			{
+				LoginBtn.Visibility = Visibility.Visible;
+				GetCabsPanel.Visibility = Visibility.Collapsed;
+			}
+			else
+			{
+				LoginBtn.Visibility = Visibility.Collapsed;
+				GetCabsPanel.Visibility = Visibility.Visible;
+			}
         }
+
+		private void LoginBtn_Click(object sender, RoutedEventArgs e)
+		{
+			this.Frame.Navigate(typeof(Login));
+		}
     }
 }
