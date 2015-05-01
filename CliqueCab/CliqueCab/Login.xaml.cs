@@ -52,11 +52,12 @@ namespace CliqueCab
 				// Reference Uri: https://www.uber.com/#access_token=vStdOf7brqdEYoiOBx7k9kLhDFBX9m&token_type=Bearer&expires_in=2592000&scope=profile+history_lite
 				string parameters = Uri.Substring(Uri.IndexOf("#") + 1);
 
-				string[] kvps = parameters.Split('&');
+				string[] kvps = parameters.Split(new char[] {'&', '='});
 
 				for (int i = 0; i < kvps.Length; i += 2)
 				{
-					switch (kvps[i])
+					string key = kvps[i];
+					switch (key)
 					{ 
 						case "access_token":
 							User.Access_Token = kvps[i + 1];
@@ -72,7 +73,10 @@ namespace CliqueCab
 							break;
 					}
 				}
+
+				this.Frame.Navigate(typeof(MainPage));
 			}
+
 		}
 	}
 }
