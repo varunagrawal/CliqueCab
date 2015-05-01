@@ -60,10 +60,13 @@ namespace CliqueCab
 
 			set
 			{
+				
+				DateTime expiration = DateTime.Now.AddSeconds(double.Parse(value));
+				double expiration_ticks = expiration.Subtract(new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)).Ticks;
 				var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
 				if (localSettings.Values.ContainsKey("expires_in"))
-					localSettings.Values["expires_in"] = value;
-				else localSettings.Values.Add("expires_in", value);
+					localSettings.Values["expires_in"] = expiration_ticks.ToString();
+				else localSettings.Values.Add("expires_in", expiration_ticks.ToString());
 			}
 		}
 
