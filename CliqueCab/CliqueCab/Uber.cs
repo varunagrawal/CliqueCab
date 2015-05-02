@@ -13,7 +13,7 @@ namespace CliqueCab
 	public class UberProducts
 	{
 		[JsonProperty("products")]
-		List<Product> Products { get; set; }
+		public List<Product> Products { get; set; }
 
 		//public Products(string JSON)
 		//{
@@ -45,14 +45,25 @@ namespace CliqueCab
 		public int Capacity { get; set; }
 		public string Image { get; set; }
 
-		//public Product(JsonObject obj) 
-		//{
-		//	ProductId = obj.GetNamedString("product_id");
-		//	Description = obj.GetNamedString("description");
-		//	DisplayName = obj.GetNamedString("display_name");
-		//	Capacity = int.Parse(obj.GetNamedNumber("capacity").ToString());
-		//	ImageUrl = obj.GetNamedString("image");
-		//}
+		public Price_Details Price_Details { get; set; }
+		
+	}
+
+	public class Price_Details
+	{
+		public string Distance_Unit { get; set; }
+		public float Base { get; set; }
+		public float Minimum { get; set; }
+		public float Cost_Per_Minute { get; set; }
+		public float Cost_Per_Distance { get; set; }
+
+		public float Cost
+		{
+			get
+			{
+				return Base + Cost_Per_Distance + Cost_Per_Minute;
+			}
+		}
 	}
 
 	public class Uber

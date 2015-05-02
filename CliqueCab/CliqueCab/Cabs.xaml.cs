@@ -57,9 +57,11 @@ namespace CliqueCab
 			}
 
 			var cabs = await GetCabOptions(passengers);
+
+			statusbar.HideAsync();
 		}
 
-		private async Task<List<CabOption>> GetCabOptions(long Passengers)
+		private async Task<List<Product>> GetCabOptions(long Passengers)
 		{
 			Geolocator locator = new Geolocator();
 			locator.DesiredAccuracy = PositionAccuracy.High;
@@ -74,10 +76,9 @@ namespace CliqueCab
 				Geoposition pos = await locator.GetGeopositionAsync();
 				UberProducts products = await uber.Products(pos.Coordinate.Point.Position.Latitude, pos.Coordinate.Point.Position.Longitude);
 
-				List<CabOption> cabOptions = CabOption.CabOptionsFromUberProducts(products);
-				statusbar.HideAsync();
+				List<Product> bestCabOptions = CabOption.GetBestCabOption(products, Passengers);
 
-				return products;
+				return bestCabOptions;
 			}
 			catch(Exception ex)
 			{
