@@ -95,16 +95,6 @@ namespace CliqueCab
 		public string Picture { get; set; }
 		public string Promo_Code { get; set; }
 		public string UUID { get; set; }
-			
-		public User(string JSON){
-			JsonObject user = JsonObject.Parse(JSON);
 
-			First_Name = user.GetNamedString("first_name");
-			Last_Name = user.GetNamedString("last_name");
-			Email = user.GetNamedString("email");
-			Picture = user.GetNamedString("picture");
-			Promo_Code = user.GetNamedString("promo_code");
-			UUID = user.GetNamedString("uuid");
-		}
 	}
 }
