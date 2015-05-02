@@ -71,7 +71,7 @@ namespace CliqueCab
 			try
 			{
 				Geoposition pos = await locator.GetGeopositionAsync();
-				Products products = await uber.Products(pos.Coordinate.Point.Position.Latitude, pos.Coordinate.Point.Position.Longitude);
+				UberProducts products = await uber.Products(pos.Coordinate.Point.Position.Latitude, pos.Coordinate.Point.Position.Longitude);
 			}
 			catch(Exception ex)
 			{

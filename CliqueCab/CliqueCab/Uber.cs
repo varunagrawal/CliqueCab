@@ -64,7 +64,7 @@ namespace CliqueCab
 			client.DefaultRequestHeaders.Add("Authorization", "Bearer " + User.Access_Token);
 		}
 
-		public async Task<Products> Products(double latitude, double longitude)
+		public async Task<UberProducts> Products(double latitude, double longitude)
 		{
 			UriBuilder builder = new UriBuilder(BaseAddress + "/v1/products");
 			builder.Query = string.Format("latitude={0}&longitude={1}", latitude, longitude);
@@ -75,7 +75,7 @@ namespace CliqueCab
 			{
 				string result = await response.Content.ReadAsStringAsync();
 
-				return JsonConvert.DeserializeObject<Products>(result);
+				return JsonConvert.DeserializeObject<UberProducts>(result);
 			}
 
 			return null;
