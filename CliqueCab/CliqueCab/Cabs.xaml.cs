@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Devices.Geolocation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Popups;
@@ -36,7 +37,7 @@ namespace CliqueCab
 		/// </summary>
 		/// <param name="e">Event data that describes how this page was reached.
 		/// This parameter is typically used to configure the page.</param>
-		protected override void OnNavigatedTo(NavigationEventArgs e)
+		protected async override void OnNavigatedTo(NavigationEventArgs e)
 		{
 			StatusBar statusbar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
 			statusbar.ProgressIndicator.Text = "Getting Cab Options...";
@@ -53,12 +54,23 @@ namespace CliqueCab
 				md.ShowAsync();
 			}
 
-			GetCabOptions(passengers);
+			var cabs = await GetCabOptions(passengers);
 		}
 
-		private List<CabOption> GetCabOptions(long Passengers)
+		private async Task<List<CabOption>> GetCabOptions(long Passengers)
 		{
-			//var products = uber.Products();
+			Geolocator locator = new Geolocator();
+			locator.DesiredAccuracy = PositionAccuracy.High;
+
+			if (locator.LocationStatus == PositionStatus.Disabled)
+			{
+				MessageDialog md = new MessageDialog("Please turn on location services and try again.", "Location Disabled");
+				this.Frame.GoBack();
+			}
+
+			Geoposition pos = await locator.GetGeopositionAsync();
+
+			var products = uber.Products(pos.Coordinate.Latitude, pos.Coordinate.Longitude);
 			return null;
 		}
 	}
