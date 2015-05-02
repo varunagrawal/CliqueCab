@@ -68,9 +68,15 @@ namespace CliqueCab
 				MessageDialog md = new MessageDialog("Please turn on location services and try again.", "Location Disabled");
 				this.Frame.GoBack();
 			}
-
-			Geoposition pos = await locator.GetGeopositionAsync();
-			var products = uber.Products(pos.Coordinate.Point.Position.Latitude, pos.Coordinate.Point.Position.Longitude);
+			try
+			{
+				Geoposition pos = await locator.GetGeopositionAsync();
+				var products = uber.Products(pos.Coordinate.Point.Position.Latitude, pos.Coordinate.Point.Position.Longitude);
+			}
+			catch(Exception ex)
+			{
+				System.Diagnostics.Debug.WriteLine(ex.Message);
+			}
 			return null;
 		}
 	}
