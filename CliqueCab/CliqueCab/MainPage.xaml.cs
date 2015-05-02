@@ -47,10 +47,13 @@ namespace CliqueCab
 				LoginBtn.Visibility = Visibility.Collapsed;
 				GetCabsPanel.Visibility = Visibility.Visible;
 
+				UserName.Visibility = Visibility.Collapsed;
+				
 				Uber uber = new Uber();
 				User user = await uber.UserProfile();
+				UserName.Text = string.Format("Hey there, {0}!", user.First_Name);
 
-				UserName.Text = string.Format("Hi there, {0}!", user.First_Name);
+				UserName.Visibility = Visibility.Visible;
 			}
 
         }

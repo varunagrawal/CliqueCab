@@ -17,7 +17,7 @@
 
 		<StackPanel x:Name="GetCabsPanel" Margin="0,78,0,0">
 			<TextBlock x:Name="UserName" Text="Hey there, user!" Height="51" FontSize="35" />
-			<TextBox x:Name="txtPassengers" InputScope="Number" Text="1" HorizontalAlignment="Center" 
+			<TextBox x:Name="txtPassengers" InputScope="Number" Text="" HorizontalAlignment="Center" 
 			 TextAlignment="Center" Margin="10,10,10,0" Width="380" Height="96" FontSize="60" />
 			<Button x:Name="btnGetCabs" Content="Get Cabs" HorizontalAlignment="Center" Width="380" Margin="10,20,10,0" Height="98"
 					FontSize="30" Click="btnGetCabs_Click"/>
