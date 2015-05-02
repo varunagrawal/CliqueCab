@@ -27,6 +27,7 @@ namespace CliqueCab
 	public sealed partial class Cabs : Page
 	{
 		Uber uber = new Uber();
+		StatusBar statusbar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
 
 		public Cabs()
 		{
@@ -40,8 +41,8 @@ namespace CliqueCab
 		/// This parameter is typically used to configure the page.</param>
 		protected async override void OnNavigatedTo(NavigationEventArgs e)
 		{
-			StatusBar statusbar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
 			statusbar.ProgressIndicator.Text = "Getting Cab Options...";
+			statusbar.BackgroundColor = Windows.UI.Color.FromArgb(255, 135, 125, 119);
 			statusbar.ProgressIndicator.ShowAsync();
 
 			long passengers = 2;
@@ -72,6 +73,11 @@ namespace CliqueCab
 			{
 				Geoposition pos = await locator.GetGeopositionAsync();
 				UberProducts products = await uber.Products(pos.Coordinate.Point.Position.Latitude, pos.Coordinate.Point.Position.Longitude);
+
+				List<CabOption> cabOptions = CabOption.CabOptionsFromUberProducts(products);
+				statusbar.HideAsync();
+
+				return products;
 			}
 			catch(Exception ex)
 			{

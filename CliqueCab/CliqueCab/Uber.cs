@@ -12,6 +12,7 @@ namespace CliqueCab
 {
 	public class UberProducts
 	{
+		[JsonProperty("products")]
 		List<Product> Products { get; set; }
 
 		//public Products(string JSON)
