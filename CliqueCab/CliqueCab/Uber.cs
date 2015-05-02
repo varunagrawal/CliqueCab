@@ -20,7 +20,7 @@ namespace CliqueCab
 			client.DefaultRequestHeaders.Add("Authorization", "Bearer " + User.Access_Token);
 		}
 
-		public async Task<Products> Products(float latitude, float longitude)
+		public async Task<Products> Products(double latitude, double longitude)
 		{
 			UriBuilder builder = new UriBuilder(BaseAddress + "/v1/products");
 			builder.Query = string.Format("latitude={0}&longitude={1}", latitude, longitude);

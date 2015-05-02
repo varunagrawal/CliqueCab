@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Devices.Geolocation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -69,8 +70,7 @@ namespace CliqueCab
 			}
 
 			Geoposition pos = await locator.GetGeopositionAsync();
-
-			var products = uber.Products(pos.Coordinate.Latitude, pos.Coordinate.Longitude);
+			var products = uber.Products(pos.Coordinate.Point.Position.Latitude, pos.Coordinate.Point.Position.Longitude);
 			return null;
 		}
 	}
