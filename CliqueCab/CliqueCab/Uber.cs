@@ -94,17 +94,29 @@ namespace CliqueCab
 		}
 
 		public async Task<User> UserProfile()
-		{ 
-			HttpResponseMessage response = await client.GetAsync(new Uri(BaseAddress + "/v1/me"));
-
-			if(response.StatusCode == HttpStatusCode.OK)
+		{
+			try
 			{
-				string result = await response.Content.ReadAsStringAsync();
+				HttpResponseMessage response = await client.GetAsync(new Uri(BaseAddress + "/v1/me"));
 
-				return JsonConvert.DeserializeObject<User>(result);
+				if (response.StatusCode == HttpStatusCode.OK)
+				{
+					string result = await response.Content.ReadAsStringAsync();
+
+					return JsonConvert.DeserializeObject<User>(result);
+				}
+			}
+			catch (Exception ex)
+			{
+				User u = new User();
+				u.First_Name = "User";
+				u.Last_Name = "";
+
+				return u;
 			}
 
 			return null;
+
 		}
 	}
 
