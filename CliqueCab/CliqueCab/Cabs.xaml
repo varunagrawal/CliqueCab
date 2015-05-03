@@ -9,6 +9,15 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-
+		<ListView x:Name="ListOfCabs" AllowDrop="True" Drop="ListOfCabs_Drop">
+			
+		</ListView>
     </Grid>
+
+	<Page.BottomAppBar>
+		<AppBar>
+			<GridView ItemsSource="{Binding}" FlowDirection="LeftToRight"
+			  CanDragItems="True" />
+		</AppBar>
+	</Page.BottomAppBar>
 </Page>
