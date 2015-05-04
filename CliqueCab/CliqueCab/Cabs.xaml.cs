@@ -84,6 +84,14 @@ namespace CliqueCab
 
 				UberProducts products = await uber.Products(pos.Coordinate.Point.Position.Latitude, pos.Coordinate.Point.Position.Longitude);
 
+				if(products == null)
+				{
+					MessageDialog md = new MessageDialog("Could not retrieve products. Please check internet connection.");
+					var x = await md.ShowAsync();
+
+					Frame.GoBack();
+				}
+
 				return products.Products;
 
 				//List<Product> bestCabOptions = CabOption.GetBestCabOption(products, Passengers);
