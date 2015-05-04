@@ -33,6 +33,7 @@
 					<StackPanel Orientation="Horizontal" Margin="10,0">
 						<TextBlock Text="{Binding Display_Name}" FontSize="20" VerticalAlignment="Center" Width="90" />
 						<Image Source="{Binding Image}" Width="60px" Height="60px" Margin="20,0"/>
+						<TextBlock x:Name="Price_Details" Text="{Binding Price_Details}" VerticalAlignment="Center" TextAlignment="Center" FontSize="17" />
 					</StackPanel>
 				</DataTemplate>
 			</ListView.ItemTemplate>

@@ -64,6 +64,11 @@ namespace CliqueCab
 				return Base + Cost_Per_Distance + Cost_Per_Minute;
 			}
 		}
+
+		public override string ToString()
+		{
+			return String.Format("{0} + {1}/d + {2}/min", Base, Cost_Per_Distance, Cost_Per_Minute);
+		}
 	}
 
 	public class Uber
