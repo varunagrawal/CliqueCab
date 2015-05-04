@@ -30,6 +30,7 @@ namespace CliqueCab
 		Uber uber = new Uber();
 		StatusBar statusbar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
 		ObservableCollection<Product> selectedCabs = new ObservableCollection<Product>();
+		long passengers = 1;
 
 		public Cabs()
 		{
@@ -49,7 +50,6 @@ namespace CliqueCab
 			statusbar.BackgroundColor = Windows.UI.Colors.DarkSlateGray;
 			statusbar.BackgroundOpacity = 1.0;
 
-			long passengers = 2;
 			try
 			{
 				passengers = (long)e.Parameter;
@@ -63,7 +63,7 @@ namespace CliqueCab
 			var cabs = await GetCabOptions(passengers);
 
 			CabsListView.ItemsSource = cabs;
-			SetCurrentPassengerCapacity();
+			SetCurrentPassengersRemaining();
 
 			statusbar.HideAsync();
 
@@ -110,7 +110,7 @@ namespace CliqueCab
 
 			ListOfCabs.ItemsSource = selectedCabs;
 
-			SetCurrentPassengerCapacity();
+			SetCurrentPassengersRemaining();
 		}
 
 		private void ListOfCabs_ItemClick(object sender, ItemClickEventArgs e)
@@ -120,18 +120,20 @@ namespace CliqueCab
 
 			selectedCabs.Remove(cabToRemove);
 
-			SetCurrentPassengerCapacity();
+			SetCurrentPassengersRemaining();
 		}
 
-		private void SetCurrentPassengerCapacity()
+		private void SetCurrentPassengersRemaining()
 		{
-			long passenger_capacity = 0;
+			long passengers_remaining = passengers;
 			foreach (Product p in selectedCabs)
 			{
-				passenger_capacity += p.Capacity;
+				passengers_remaining -= p.Capacity;
 			}
 
-			PassengerCapacity.Text = String.Format("Total Passengers: {0}", passenger_capacity);
+			if (passengers_remaining < 0) passengers_remaining = 0;
+
+			PassengersLeft.Text = String.Format("Passengers Left: {0}", passengers_remaining);
 		}
 
 
