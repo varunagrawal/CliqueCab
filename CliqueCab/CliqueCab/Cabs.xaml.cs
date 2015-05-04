@@ -124,6 +124,8 @@ namespace CliqueCab
 			Product cabToRemove = e.ClickedItem as Product;
 			var selectedCabs = ListOfCabs.ItemsSource as ObservableCollection<Product>;
 			selectedCabs.Remove(cabToRemove);
+
+			SetCurrentPassengerCapacity();
 		}
 
 		private void SetCurrentPassengerCapacity()
