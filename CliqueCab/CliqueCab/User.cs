@@ -104,7 +104,6 @@ namespace CliqueCab
 		{
 			Geolocator locator = new Geolocator();
 			//locator.DesiredAccuracy = PositionAccuracy.High;
-			locator.DesiredAccuracyInMeters = 10;
 			locator.MovementThreshold = 50;
 			locator.PositionChanged += locator_PositionChanged;
 
