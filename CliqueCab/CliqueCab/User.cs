@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Data.Json;
+using Windows.Devices.Geolocation;
 using Windows.Storage;
+using Windows.UI.Popups;
 
 namespace CliqueCab
 {
@@ -96,5 +98,45 @@ namespace CliqueCab
 		public string Promo_Code { get; set; }
 		public string UUID { get; set; }
 
+		public static Geoposition Location { get; set; }
+
+		public static async Task<Geoposition> GetLocation()
+		{
+			Geolocator locator = new Geolocator();
+			//locator.DesiredAccuracy = PositionAccuracy.High;
+			locator.DesiredAccuracyInMeters = 10;
+			locator.MovementThreshold = 50;
+			locator.PositionChanged += locator_PositionChanged;
+
+			if (locator.LocationStatus == PositionStatus.Disabled || locator.LocationStatus == PositionStatus.NotAvailable)
+			{
+				MessageDialog md = new MessageDialog("Please turn on location services and try again.", "Location Disabled");
+			}
+
+			try
+			{
+				Location = await locator.GetGeopositionAsync();
+
+				return Location;
+			}
+			catch(Exception ex)
+			{
+				System.Diagnostics.Debug.WriteLine(ex.Message);
+			}
+
+			return null;
+		}
+
+		static void locator_PositionChanged(Geolocator sender, PositionChangedEventArgs args)
+		{
+			try
+			{
+				Location = args.Position;
+			}
+			catch(Exception ex)
+			{
+				System.Diagnostics.Debug.WriteLine(ex.Message);
+			}
+		} 
 	}
 }

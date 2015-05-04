@@ -43,17 +43,18 @@ namespace CliqueCab
 		/// This parameter is typically used to configure the page.</param>
 		protected async override void OnNavigatedTo(NavigationEventArgs e)
 		{
+			BottomAppBar.Visibility = Visibility.Collapsed;
 			CabsMainGrid.Visibility = Visibility.Collapsed;
 
 			statusbar.BackgroundColor = Windows.UI.Colors.DarkSlateGray;
 			statusbar.BackgroundOpacity = 1.0;
-			
+
 			long passengers = 2;
 			try
 			{
 				passengers = (long)e.Parameter;
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 				MessageDialog md = new MessageDialog(ex.Message, "");
 				md.ShowAsync();
@@ -71,20 +72,12 @@ namespace CliqueCab
 
 		private async Task<List<Product>> GetCabOptions(long Passengers)
 		{
-			Geolocator locator = new Geolocator();
-			locator.DesiredAccuracy = PositionAccuracy.High;
-
-			if (locator.LocationStatus == PositionStatus.Disabled)
-			{
-				MessageDialog md = new MessageDialog("Please turn on location services and try again.", "Location Disabled");
-				this.Frame.GoBack();
-			}
 			try
 			{
 				statusbar.ProgressIndicator.Text = "Getting Location...";
 				statusbar.ProgressIndicator.ShowAsync();
 
-				Geoposition pos = await locator.GetGeopositionAsync();
+				Geoposition pos = await User.GetLocation();
 
 				statusbar.ProgressIndicator.Text = "Getting Cab Options...";
 
@@ -96,7 +89,7 @@ namespace CliqueCab
 
 				//return bestCabOptions;
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 				MessageDialog md = new MessageDialog("Cannot access location data!");
 				md.ShowAsync();
@@ -115,7 +108,7 @@ namespace CliqueCab
 			selectedCabs.Add(cab);
 
 			ListOfCabs.ItemsSource = selectedCabs;
-			
+
 			SetCurrentPassengerCapacity();
 		}
 
@@ -131,7 +124,7 @@ namespace CliqueCab
 		private void SetCurrentPassengerCapacity()
 		{
 			long passenger_capacity = 0;
-			foreach(Product p in selectedCabs)
+			foreach (Product p in selectedCabs)
 			{
 				passenger_capacity += p.Capacity;
 			}
@@ -139,7 +132,7 @@ namespace CliqueCab
 			PassengerCapacity.Text = String.Format("Total Passengers: {0}", passenger_capacity);
 		}
 
-		
+
 
 	}
 }
