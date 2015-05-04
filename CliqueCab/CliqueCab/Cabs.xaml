@@ -9,7 +9,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
 	<Grid>
-		<TextBlock Text="Total Passengers: 0" FontSize="30" HorizontalAlignment="Center" Margin="77,24,75,511"/>
+		<TextBlock x:Name="PassengerCapacity" Text="Total Passengers: 0" FontSize="30" HorizontalAlignment="Center" Margin="77,24,75,511"/>
 		<ListView x:Name="CabsListView"	Margin="10,74,10,456" ItemsSource="{Binding}" IsItemClickEnabled="True" ItemClick="CabsListView_ItemClick" Height="50"  ScrollViewer.HorizontalScrollBarVisibility="Auto"	ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollMode="Auto" ScrollViewer.VerticalScrollMode="Disabled" Background="DarkSlateGray" >
 			<ListView.ItemsPanel>
 				<ItemsPanelTemplate>

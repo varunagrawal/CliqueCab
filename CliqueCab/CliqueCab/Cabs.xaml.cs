@@ -43,6 +43,8 @@ namespace CliqueCab
 		/// This parameter is typically used to configure the page.</param>
 		protected async override void OnNavigatedTo(NavigationEventArgs e)
 		{
+			SetCurrentPassengerCapacity();
+	
 			statusbar.BackgroundColor = Windows.UI.Colors.DarkSlateGray;
 			statusbar.BackgroundOpacity = 1.0;
 			
@@ -108,7 +110,22 @@ namespace CliqueCab
 		private void CabsListView_ItemClick(object sender, ItemClickEventArgs e)
 		{
 			Product cab = e.ClickedItem as Product;
+			selectedCabs.Add(cab);
+
+			ListOfCabs.ItemsSource = selectedCabs;
 			
+			SetCurrentPassengerCapacity();
+		}
+
+		private void SetCurrentPassengerCapacity()
+		{
+			long passenger_capacity = 0;
+			foreach(Product p in selectedCabs)
+			{
+				passenger_capacity += p.Capacity;
+			}
+
+			PassengerCapacity.Text = String.Format("Total Passengers: {0}", passenger_capacity);
 		}
 
 	}
