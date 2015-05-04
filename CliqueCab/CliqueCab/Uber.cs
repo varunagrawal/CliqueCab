@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Http;
 using Windows.Data.Json;
 using Newtonsoft.Json;
+using Windows.Devices.Geolocation;
 
 namespace CliqueCab
 {
@@ -113,6 +114,74 @@ namespace CliqueCab
 			return null;
 
 		}
+
+		public async Task<Request> Request(string Product_Id, Geoposition start, Geoposition end, string Surge_Confirmation_Id = null)
+		{
+			UriBuilder builder = new UriBuilder(BaseAddress + "/v1/requests");
+			List<KeyValuePair<string, string>> postParams = new List<KeyValuePair<string,string>>
+			{
+				new KeyValuePair<string, string>("product_id", Product_Id),
+				new KeyValuePair<string, string>("start_latitude", start.Coordinate.Point.Position.Latitude.ToString()),
+				new KeyValuePair<string, string>("start_longitude", start.Coordinate.Point.Position.Longitude.ToString()),
+				new KeyValuePair<string, string>("end_latitude", end.Coordinate.Point.Position.Latitude.ToString()),
+				new KeyValuePair<string, string>("end_longitude", end.Coordinate.Point.Position.Longitude.ToString())
+			};
+
+			if(Surge_Confirmation_Id != null)
+			{
+				postParams.Add(new KeyValuePair<string, string>("start_latitude", start.Coordinate.Point.Position.Latitude.ToString()));
+			}
+
+			HttpContent content = new FormUrlEncodedContent(postParams);
+
+			try
+			{
+				HttpResponseMessage response = await client.PostAsync(builder.Uri, content);
+
+				if (response.StatusCode == HttpStatusCode.OK)
+				{
+					string result = await response.Content.ReadAsStringAsync();
+
+					return JsonConvert.DeserializeObject<Request>(result);
+				}
+			}
+			catch(Exception ex)
+			{
+				System.Diagnostics.Debug.WriteLine(ex.Message);
+			}
+
+			return null;
+		}
 	}
 
+	public class Request
+	{
+		public string Request_Id { get; set; }
+		public string Status { get; set; }
+		public Vehicle Vehicle { get; set; }
+		public Driver Driver { get; set; }
+		public Location DriverLocation { get; set; }
+		public int eta { get; set; }
+		public float Surge_Multiplier { get; set; }
+		public Meta Meta { get; set; }
+	}
+
+	public class Vehicle 
+	{
+	}
+
+	public class Driver
+	{
+
+	}
+
+	public class Location
+	{
+
+	}
+
+	public class Meta 
+	{
+
+	}
 }
