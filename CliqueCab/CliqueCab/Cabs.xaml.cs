@@ -67,6 +67,7 @@ namespace CliqueCab
 
 			statusbar.HideAsync();
 
+			BottomAppBar.Visibility = Visibility.Visible;
 			CabsMainGrid.Visibility = Visibility.Visible;
 		}
 
