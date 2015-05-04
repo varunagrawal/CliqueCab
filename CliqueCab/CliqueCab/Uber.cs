@@ -14,27 +14,6 @@ namespace CliqueCab
 	{
 		[JsonProperty("products")]
 		public List<Product> Products { get; set; }
-
-		//public Products(string JSON)
-		//{
-		//List = JsonConvert.DeserializeObject<List<Product>>(JSON);
-		//JsonObject obj = JsonObject.Parse(JSON);
-		//JsonArray array = obj.GetArray();
-
-		//List = new List<Product>();
-
-		//foreach(JsonObject product in array)
-		//{
-		//	var prod = ParseJSONProduct(product);
-		//	List.Add(prod);
-		//}
-
-		//}
-
-		//Product ParseJSONProduct(JsonObject obj)
-		//{
-		//	return new Product(obj);
-		//}
 	}
 
 	public class Product
@@ -52,10 +31,15 @@ namespace CliqueCab
 	public class Price_Details
 	{
 		public string Distance_Unit { get; set; }
-		public float Base { get; set; }
-		public float Minimum { get; set; }
 		public float Cost_Per_Minute { get; set; }
+		public float Minimum { get; set; }
 		public float Cost_Per_Distance { get; set; }
+		public float Base { get; set; }
+		public float Cancellation_Fee { get; set; }
+		public string Currency_Code { get; set; }
+
+		[JsonProperty("service_fees")]
+		public List<ServiceFees> Service_Fees { get; set; }
 
 		public float Cost
 		{
@@ -69,6 +53,12 @@ namespace CliqueCab
 		{
 			return String.Format("{0} + {1}/d + {2}/min", Base, Cost_Per_Distance, Cost_Per_Minute);
 		}
+	}
+
+	public class ServiceFees
+	{
+		public string Name { get; set; }
+		public float Fee { get; set; }
 	}
 
 	public class Uber
