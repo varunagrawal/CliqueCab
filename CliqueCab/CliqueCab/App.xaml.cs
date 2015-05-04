@@ -127,5 +127,16 @@ namespace CliqueCab
             // TODO: Save application state and stop any background activity
             deferral.Complete();
         }
+
+		void HardwareButtons_BackPressed(object sender, Windows.Phone.UI.Input.BackPressedEventArgs e)
+		{
+			Frame rootFrame = Window.Current.Content as Frame;
+
+			if (rootFrame != null && rootFrame.CanGoBack && !e.Handled)
+			{
+				e.Handled = true;
+				rootFrame.GoBack();
+			}
+		}
     }
 }
