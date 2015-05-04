@@ -43,8 +43,8 @@ namespace CliqueCab
 		/// This parameter is typically used to configure the page.</param>
 		protected async override void OnNavigatedTo(NavigationEventArgs e)
 		{
-			SetCurrentPassengerCapacity();
-	
+			CabsMainGrid.Visibility = Visibility.Collapsed;
+
 			statusbar.BackgroundColor = Windows.UI.Colors.DarkSlateGray;
 			statusbar.BackgroundOpacity = 1.0;
 			
@@ -62,8 +62,11 @@ namespace CliqueCab
 			var cabs = await GetCabOptions(passengers);
 
 			CabsListView.ItemsSource = cabs;
+			SetCurrentPassengerCapacity();
 
 			statusbar.HideAsync();
+
+			CabsMainGrid.Visibility = Visibility.Visible;
 		}
 
 		private async Task<List<Product>> GetCabOptions(long Passengers)
@@ -104,7 +107,6 @@ namespace CliqueCab
 
 		private void ListOfCabs_Drop(object sender, DragEventArgs e)
 		{
-			var x = e.Data;
 		}
 
 		private void CabsListView_ItemClick(object sender, ItemClickEventArgs e)
@@ -117,6 +119,13 @@ namespace CliqueCab
 			SetCurrentPassengerCapacity();
 		}
 
+		private void ListOfCabs_ItemClick(object sender, ItemClickEventArgs e)
+		{
+			Product cabToRemove = e.ClickedItem as Product;
+			var selectedCabs = ListOfCabs.ItemsSource as ObservableCollection<Product>;
+			selectedCabs.Remove(cabToRemove);
+		}
+
 		private void SetCurrentPassengerCapacity()
 		{
 			long passenger_capacity = 0;
@@ -127,6 +136,8 @@ namespace CliqueCab
 
 			PassengerCapacity.Text = String.Format("Total Passengers: {0}", passenger_capacity);
 		}
+
+		
 
 	}
 }
