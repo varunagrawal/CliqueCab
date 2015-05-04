@@ -69,13 +69,13 @@ namespace CliqueCab
 			try
 			{
 				passengers = Int64.Parse(txtPassengers.Text);
+				this.Frame.Navigate(typeof(Cabs), passengers);
 			}
 			catch(Exception ex)
 			{
 				MessageDialog md = new MessageDialog("Invalid Passenger Count", "Passengers Error");
 				md.ShowAsync();
 			}
-			this.Frame.Navigate(typeof(Cabs), passengers);
 		}
     }
 }
