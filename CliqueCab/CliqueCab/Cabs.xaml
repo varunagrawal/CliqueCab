@@ -8,16 +8,40 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
-		<ListView x:Name="ListOfCabs" AllowDrop="True" Drop="ListOfCabs_Drop">
-			
+	<Grid>
+		<TextBlock Text="Total Passengers: 0" FontSize="30" HorizontalAlignment="Center" Margin="77,24,75,511"/>
+		<ListView x:Name="CabsListView"	Margin="10,74,10,456" ItemsSource="{Binding}" IsItemClickEnabled="True" ItemClick="CabsListView_ItemClick" Height="50"  ScrollViewer.HorizontalScrollBarVisibility="Auto"	ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollMode="Auto" ScrollViewer.VerticalScrollMode="Disabled" Background="DarkSlateGray" >
+			<ListView.ItemsPanel>
+				<ItemsPanelTemplate>
+					<VirtualizingStackPanel Orientation="Horizontal" />
+				</ItemsPanelTemplate>
+			</ListView.ItemsPanel>
+			<ListView.ItemTemplate>
+				<DataTemplate>
+					<Grid>
+						<Image Grid.Row="0" Source="{Binding Image}" Width="60px" Height="60px" Margin="20,0"/>
+						<TextBlock Grid.Row="1" Text="{Binding Display_Name}" HorizontalAlignment="Center" />
+					</Grid>
+				</DataTemplate>
+			</ListView.ItemTemplate>
 		</ListView>
-    </Grid>
+
+		<ListView x:Name="ListOfCabs" AllowDrop="True" Drop="ListOfCabs_Drop" Margin="10,143,10,34">
+			<ListView.ItemTemplate>
+				<DataTemplate>
+					<Grid>
+						<Image Grid.Row="0" Source="{Binding Image}" Width="60px" Height="60px" Margin="20,0"/>
+						<TextBlock Grid.Row="1" Text="{Binding Display_Name}" />
+					</Grid>
+				</DataTemplate>
+			</ListView.ItemTemplate>
+		</ListView>
+
+	</Grid>
 
 	<Page.BottomAppBar>
-		<AppBar>
-			<GridView ItemsSource="{Binding}" FlowDirection="LeftToRight"
-			  CanDragItems="True" />
-		</AppBar>
+		<CommandBar>
+			<AppBarButton x:Name="BookCabsBtn" Label="Book Cabs" Icon="Accept" />
+		</CommandBar>
 	</Page.BottomAppBar>
 </Page>

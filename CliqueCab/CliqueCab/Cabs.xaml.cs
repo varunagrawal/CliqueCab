@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -28,6 +29,7 @@ namespace CliqueCab
 	{
 		Uber uber = new Uber();
 		StatusBar statusbar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
+		ObservableCollection<Product> selectedCabs = new ObservableCollection<Product>();
 
 		public Cabs()
 		{
@@ -41,10 +43,9 @@ namespace CliqueCab
 		/// This parameter is typically used to configure the page.</param>
 		protected async override void OnNavigatedTo(NavigationEventArgs e)
 		{
-			statusbar.ProgressIndicator.Text = "Getting Cab Options...";
-			statusbar.BackgroundColor = Windows.UI.Color.FromArgb(255, 135, 125, 119);
-			statusbar.ProgressIndicator.ShowAsync();
-
+			statusbar.BackgroundColor = Windows.UI.Colors.DarkSlateGray;
+			statusbar.BackgroundOpacity = 1.0;
+			
 			long passengers = 2;
 			try
 			{
@@ -57,6 +58,8 @@ namespace CliqueCab
 			}
 
 			var cabs = await GetCabOptions(passengers);
+
+			CabsListView.ItemsSource = cabs;
 
 			statusbar.HideAsync();
 		}
@@ -73,18 +76,40 @@ namespace CliqueCab
 			}
 			try
 			{
+				statusbar.ProgressIndicator.Text = "Getting Location...";
+				statusbar.ProgressIndicator.ShowAsync();
+
 				Geoposition pos = await locator.GetGeopositionAsync();
+
+				statusbar.ProgressIndicator.Text = "Getting Cab Options...";
+
 				UberProducts products = await uber.Products(pos.Coordinate.Point.Position.Latitude, pos.Coordinate.Point.Position.Longitude);
 
-				List<Product> bestCabOptions = CabOption.GetBestCabOption(products, Passengers);
+				return products.Products;
 
-				return bestCabOptions;
+				//List<Product> bestCabOptions = CabOption.GetBestCabOption(products, Passengers);
+
+				//return bestCabOptions;
 			}
 			catch(Exception ex)
 			{
+				MessageDialog md = new MessageDialog("Cannot access location data!");
+				md.ShowAsync();
 				System.Diagnostics.Debug.WriteLine(ex.Message);
 			}
 			return null;
 		}
+
+		private void ListOfCabs_Drop(object sender, DragEventArgs e)
+		{
+			var x = e.Data;
+		}
+
+		private void CabsListView_ItemClick(object sender, ItemClickEventArgs e)
+		{
+			Product cab = e.ClickedItem as Product;
+			
+		}
+
 	}
 }
