@@ -43,7 +43,7 @@
 
 	<Page.BottomAppBar>
 		<CommandBar>
-			<AppBarButton x:Name="BookCabsBtn" Label="Book Cabs" Icon="Accept" />
+			<AppBarButton x:Name="BookCabsBtn" Label="Book Cabs" Icon="Accept" Click="BookCabsBtn_Click"/>
 		</CommandBar>
 	</Page.BottomAppBar>
 </Page>

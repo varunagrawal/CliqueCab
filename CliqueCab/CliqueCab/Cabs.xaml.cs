@@ -107,10 +107,7 @@ namespace CliqueCab
 			return null;
 		}
 
-		private void ListOfCabs_Drop(object sender, DragEventArgs e)
-		{
-		}
-
+		
 		private void CabsListView_ItemClick(object sender, ItemClickEventArgs e)
 		{
 			Product cab = e.ClickedItem as Product;
@@ -142,6 +139,11 @@ namespace CliqueCab
 			if (passengers_remaining < 0) passengers_remaining = 0;
 
 			PassengersLeft.Text = String.Format("Passengers Left: {0}", passengers_remaining);
+		}
+
+		private void BookCabsBtn_Click(object sender, RoutedEventArgs e)
+		{
+			this.Frame.Navigate(typeof(Requests), ListOfCabs.ItemsSource);
 		}
 
 
