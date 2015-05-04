@@ -11,27 +11,27 @@
 	<Grid x:Name="CabsMainGrid">
 		<TextBlock x:Name="PassengerCapacity" Width="380" FontSize="30" HorizontalAlignment="Center" TextAlignment="Center" Margin="10,24,10,511"/>
 
-		<ListView x:Name="CabsListView"	Margin="10,74,10,456" ItemsSource="{Binding}" IsItemClickEnabled="True" ItemClick="CabsListView_ItemClick" Height="50"  ScrollViewer.HorizontalScrollBarVisibility="Auto"	ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollMode="Auto" ScrollViewer.VerticalScrollMode="Disabled" Background="DarkSlateGray" >
+		<ListView x:Name="CabsListView"	Margin="10,85,10,424" ItemsSource="{Binding}" IsItemClickEnabled="True" ItemClick="CabsListView_ItemClick"  ScrollViewer.HorizontalScrollBarVisibility="Auto"	ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollMode="Auto" ScrollViewer.VerticalScrollMode="Disabled" Background="DarkSlateGray" >
 			<ListView.ItemsPanel>
 				<ItemsPanelTemplate>
-					<VirtualizingStackPanel Orientation="Horizontal" />
+					<StackPanel Orientation="Horizontal" />
 				</ItemsPanelTemplate>
 			</ListView.ItemsPanel>
 			<ListView.ItemTemplate>
 				<DataTemplate>
-					<Grid>
-						<Image Grid.Row="0" Source="{Binding Image}" Width="60px" Height="60px" Margin="20,0"/>
-						<TextBlock Grid.Row="1" Text="{Binding Display_Name}" HorizontalAlignment="Center" />
-					</Grid>
+					<StackPanel>
+						<Image Source="{Binding Image}" Width="60px" Height="60px" Margin="20,0"/>
+						<TextBlock Text="{Binding Display_Name}" HorizontalAlignment="Center" Margin="0,-15,0,0" />
+					</StackPanel>
 				</DataTemplate>
 			</ListView.ItemTemplate>
 		</ListView>
 
-		<ListView x:Name="ListOfCabs" AllowDrop="True" Drop="ListOfCabs_Drop" Margin="10,143,10,34" ItemClick="ListOfCabs_ItemClick" IsItemClickEnabled="True" Background="DarkGray">
+		<ListView x:Name="ListOfCabs" AllowDrop="True" Drop="ListOfCabs_Drop" Margin="10,172,10,34" ItemClick="ListOfCabs_ItemClick" IsItemClickEnabled="True" Background="DarkGray">
 			<ListView.ItemTemplate>
 				<DataTemplate>
-					<StackPanel Orientation="Horizontal" Margin="30,0">
-						<TextBlock Text="{Binding Display_Name}" TextAlignment="Center" VerticalAlignment="Center" />
+					<StackPanel Orientation="Horizontal" Margin="10,0">
+						<TextBlock Text="{Binding Display_Name}" FontSize="20" VerticalAlignment="Center" Width="90" />
 						<Image Source="{Binding Image}" Width="60px" Height="60px" Margin="20,0"/>
 					</StackPanel>
 				</DataTemplate>
