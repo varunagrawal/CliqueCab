@@ -9,18 +9,17 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
 	<Grid>
-		<TextBlock Margin="10,10,10,0" TextWrapping="Wrap" Text="CliqueCab" VerticalAlignment="Top" Height="63" 
+		<TextBlock Margin="10,10,10,0" TextWrapping="Wrap" Text="Clique Cab" VerticalAlignment="Top" Height="63" 
 		 TextAlignment="Center"
 				   FontSize="40" />
 
 		<Button x:Name="LoginBtn" Content="Login" Visibility="Visible" Click="LoginBtn_Click" Margin="39,255,0,299" Width="322" Height="86" FontSize="30"/>
 
 		<StackPanel x:Name="GetCabsPanel" Margin="0,78,0,0">
-			<TextBlock x:Name="UserName" Text="Hey there, user!" Height="51" FontSize="35" Margin="24,0" />
+			<TextBlock x:Name="UserName" Text="Hey there, user!" Height="51" FontSize="35" Margin="24,0" TextAlignment="Center" />
 			<TextBox x:Name="txtPassengers" InputScope="Number" Text="" HorizontalAlignment="Center" 
-			 TextAlignment="Center" Margin="24,10,24,0" Width="352" Height="96" FontSize="60" />
-			<Button x:Name="btnGetCabs" Content="Get Cabs" HorizontalAlignment="Center" Width="352" Margin="24,20,24,0" Height="98"
-					FontSize="30" Click="btnGetCabs_Click"/>
+			 TextAlignment="Center" Margin="52,10,53,0" Width="295" Height="81" FontSize="60" />
+			<Button x:Name="btnGetCabs" Content="Get Cabs" HorizontalAlignment="Center" Width="295" Margin="52,20,53,0" Height="98" FontSize="30" Click="btnGetCabs_Click"/>
 
 		</StackPanel>
 
