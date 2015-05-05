@@ -29,7 +29,6 @@ namespace CliqueCab
 	{
 		Uber uber = new Uber();
 
-		StatusBar statusbar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
 		ObservableCollection<Product> selectedCabs = new ObservableCollection<Product>();
 
 		long passengers = 1;
