@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Devices.Geolocation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -22,18 +24,44 @@ namespace CliqueCab
 	/// </summary>
 	public sealed partial class Requests : Page
 	{
+		ObservableCollection<Product> requestedCabs = null;
+
 		public Requests()
 		{
 			this.InitializeComponent();
 		}
-
+ 
 		/// <summary>
 		/// Invoked when this page is about to be displayed in a Frame.
 		/// </summary>
 		/// <param name="e">Event data that describes how this page was reached.
 		/// This parameter is typically used to configure the page.</param>
-		protected override void OnNavigatedTo(NavigationEventArgs e)
+		protected override async void OnNavigatedTo(NavigationEventArgs e)
 		{
+			requestedCabs = e.Parameter as ObservableCollection<Product>;
+			Uber uber = new Uber();
+			Geoposition start = await User.GetLocation();
+			Geoposition end = null;
+
+			foreach(Product cab in requestedCabs)
+			{
+				Request r = await uber.Request(cab.Product_Id, start, start);
+
+				if(r.Errors != null)
+				{
+					foreach(Error err in r.Errors)
+					{
+						if(err.Code == "no_drivers_available")
+						{
+
+						}
+						else if(err.Code == "surge")
+						{
+							//Confirm Surge Pricing
+						}
+					}
+				}
+			}
 		}
 	}
 }
