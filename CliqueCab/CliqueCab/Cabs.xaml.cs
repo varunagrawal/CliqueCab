@@ -29,6 +29,7 @@ namespace CliqueCab
 	{
 		Uber uber = new Uber();
 
+		StatusBar statusbar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
 		ObservableCollection<Product> selectedCabs = new ObservableCollection<Product>();
 
 		long passengers = 1;
@@ -48,8 +49,6 @@ namespace CliqueCab
 			BottomAppBar.Visibility = Visibility.Collapsed;
 			CabsMainGrid.Visibility = Visibility.Collapsed;
 
-			statusbar.BackgroundColor = Windows.UI.Colors.DarkSlateGray;
-			statusbar.BackgroundOpacity = 1.0;
 			statusbar.ProgressIndicator.ShowAsync();
 
 			try

@@ -6,6 +6,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Popups;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -23,6 +24,8 @@ namespace CliqueCab
     /// </summary>
     public sealed partial class MainPage : Page
     {
+		StatusBar statusbar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
+
         public MainPage()
         {
             this.InitializeComponent();
@@ -37,6 +40,10 @@ namespace CliqueCab
         /// This parameter is typically used to configure the page.</param>
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
+			statusbar.BackgroundColor = Windows.UI.Colors.DarkSlateGray;
+			statusbar.BackgroundOpacity = 1.0;
+			statusbar.ShowAsync();
+
 			if (User.Access_Token == null || DateTime.Now.Subtract(DateTime.Parse(User.Expires_In)).Ticks > 0)
 			{
 				LoginBtn.Visibility = Visibility.Visible;
