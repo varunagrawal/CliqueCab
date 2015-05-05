@@ -28,8 +28,10 @@ namespace CliqueCab
 	public sealed partial class Cabs : Page
 	{
 		Uber uber = new Uber();
+
 		StatusBar statusbar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
 		ObservableCollection<Product> selectedCabs = new ObservableCollection<Product>();
+
 		long passengers = 1;
 
 		public Cabs()
@@ -49,6 +51,7 @@ namespace CliqueCab
 
 			statusbar.BackgroundColor = Windows.UI.Colors.DarkSlateGray;
 			statusbar.BackgroundOpacity = 1.0;
+			statusbar.ProgressIndicator.ShowAsync();
 
 			try
 			{
@@ -62,23 +65,23 @@ namespace CliqueCab
 
 			var cabs = await GetCabOptions(passengers);
 
+			statusbar.ProgressIndicator.HideAsync();
+
 			CabsListView.ItemsSource = cabs;
 			SetCurrentPassengersRemaining();
 
-			statusbar.HideAsync();
-
 			BottomAppBar.Visibility = Visibility.Visible;
 			CabsMainGrid.Visibility = Visibility.Visible;
-		}
+		}		
 
 		private async Task<List<Product>> GetCabOptions(long Passengers)
 		{
 			try
-			{
+			{	
 				statusbar.ProgressIndicator.Text = "Getting Location...";
-				statusbar.ProgressIndicator.ShowAsync();
 
 				Geoposition pos = await User.GetLocation();
+				if (pos == null) throw new NullReferenceException();
 
 				statusbar.ProgressIndicator.Text = "Getting Cab Options...";
 
@@ -88,8 +91,6 @@ namespace CliqueCab
 				{
 					MessageDialog md = new MessageDialog("Could not retrieve products. Please check internet connection.");
 					var x = await md.ShowAsync();
-
-					Frame.GoBack();
 				}
 
 				return products.Products;

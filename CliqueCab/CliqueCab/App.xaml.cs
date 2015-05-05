@@ -7,6 +7,7 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Phone.UI.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -35,6 +36,7 @@ namespace CliqueCab
         {
             this.InitializeComponent();
             this.Suspending += this.OnSuspending;
+			HardwareButtons.BackPressed += HardwareButtons_BackPressed;
         }
 
         /// <summary>
@@ -128,14 +130,18 @@ namespace CliqueCab
             deferral.Complete();
         }
 
-		void HardwareButtons_BackPressed(object sender, Windows.Phone.UI.Input.BackPressedEventArgs e)
+		void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e)
 		{
-			Frame rootFrame = Window.Current.Content as Frame;
-
-			if (rootFrame != null && rootFrame.CanGoBack && !e.Handled)
+			Frame frame = Window.Current.Content as Frame;
+			if (frame == null)
 			{
+				return;
+			}
+
+			if (frame.CanGoBack)
+			{
+				frame.GoBack();
 				e.Handled = true;
-				rootFrame.GoBack();
 			}
 		}
     }

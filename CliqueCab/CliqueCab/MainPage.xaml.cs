@@ -75,6 +75,8 @@ namespace CliqueCab
 			{
 				MessageDialog md = new MessageDialog("Invalid Passenger Count", "Passengers Error");
 				md.ShowAsync();
+
+				System.Diagnostics.Debug.WriteLine(ex.Message);
 			}
 		}
     }

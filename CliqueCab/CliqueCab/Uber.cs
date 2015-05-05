@@ -164,6 +164,9 @@ namespace CliqueCab
 		public int eta { get; set; }
 		public float Surge_Multiplier { get; set; }
 		public Meta Meta { get; set; }
+
+		[JsonProperty("errors")]
+		public List<Error> Errors { get; set; }
 	}
 
 	public class Vehicle 
@@ -182,6 +185,19 @@ namespace CliqueCab
 
 	public class Meta 
 	{
+		public Surge_Confirmation Surge_Confirmation { get; set; }
+	}
 
+	public class Surge_Confirmation
+	{
+		public string href { get; set; }
+		public string Surge_Confirmation_Id { get; set; }
+	}
+
+	public class Error
+	{
+		public int Status { get; set; }
+		public string Code { get; set; }
+		public string Title { get; set; }
 	}
 }

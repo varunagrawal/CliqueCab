@@ -27,7 +27,7 @@
 			</ListView.ItemTemplate>
 		</ListView>
 
-		<ListView x:Name="ListOfCabs" AllowDrop="True" Drop="ListOfCabs_Drop" Margin="10,172,10,34" ItemClick="ListOfCabs_ItemClick" IsItemClickEnabled="True" Background="DarkGray">
+		<ListView x:Name="ListOfCabs" AllowDrop="True"  Margin="10,172,10,34" ItemClick="ListOfCabs_ItemClick" IsItemClickEnabled="True" Background="DarkGray">
 			<ListView.ItemTemplate>
 				<DataTemplate>
 					<StackPanel Orientation="Horizontal" Margin="10,0">
