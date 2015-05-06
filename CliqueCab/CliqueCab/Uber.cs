@@ -178,6 +178,11 @@ namespace CliqueCab
 
 	public class Vehicle 
 	{
+		public string Make { get; set; }
+		public string Model { get; set; }
+		public string License_Plate { get; set; }
+		public string Picture_Url { get; set; }
+
 	}
 
 	public class Driver
