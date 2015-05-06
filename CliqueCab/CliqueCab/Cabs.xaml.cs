@@ -70,7 +70,13 @@ namespace CliqueCab
 
 			BottomAppBar.Visibility = Visibility.Visible;
 			CabsMainGrid.Visibility = Visibility.Visible;
-		}		
+		}
+
+		protected async override void OnNavigatedFrom(NavigationEventArgs e)
+		{
+			base.OnNavigatedFrom(e);
+			await statusbar.ProgressIndicator.HideAsync();
+		}
 
 		private async Task<List<Product>> GetCabOptions(long Passengers)
 		{
