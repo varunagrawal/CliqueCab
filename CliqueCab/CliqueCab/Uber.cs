@@ -168,7 +168,7 @@ namespace CliqueCab
 		public Vehicle Vehicle { get; set; }
 		public Driver Driver { get; set; }
 		public Location DriverLocation { get; set; }
-		public int eta { get; set; }
+		public int ETA { get; set; }
 		public float Surge_Multiplier { get; set; }
 		public Meta Meta { get; set; }
 
@@ -187,7 +187,10 @@ namespace CliqueCab
 
 	public class Driver
 	{
-
+		public string Phone_Number { get; set; }
+		public int Rating { get; set; }
+		public string Picture_Url { get; set; }
+		public string Name { get; set; }
 	}
 
 	public class Location
