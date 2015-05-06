@@ -77,13 +77,20 @@ namespace CliqueCab
 			UriBuilder builder = new UriBuilder(BaseAddress + "/v1/products");
 			builder.Query = string.Format("latitude={0}&longitude={1}", latitude, longitude);
 
-			HttpResponseMessage response = await client.GetAsync(builder.Uri);
-
-			if (response.StatusCode == HttpStatusCode.OK)
+			try
 			{
-				string result = await response.Content.ReadAsStringAsync();
+				HttpResponseMessage response = await client.GetAsync(builder.Uri);
 
-				return JsonConvert.DeserializeObject<UberProducts>(result);
+				if (response.StatusCode == HttpStatusCode.OK)
+				{
+					string result = await response.Content.ReadAsStringAsync();
+
+					return JsonConvert.DeserializeObject<UberProducts>(result);
+				}
+			}
+			catch (Exception ex)
+			{
+				System.Diagnostics.Debug.WriteLine(ex.Message);
 			}
 
 			return null;
