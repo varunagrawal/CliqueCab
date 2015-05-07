@@ -36,7 +36,7 @@ namespace CliqueCab
 		/// This parameter is typically used to configure the page.</param>
 		protected override void OnNavigatedTo(NavigationEventArgs e)
 		{
-			string auth_url = string.Format("https://login.uber.com/oauth/authorize?response_type=token&client_id={0}", Client_ID);
+			string auth_url = string.Format("https://login.uber.com/oauth/authorize?response_type=token&client_id={0}&scope=request history profile request_receipt", Client_ID);
 
 			LoginWeb.NavigationCompleted += LoginWeb_NavigationCompleted;
 			
