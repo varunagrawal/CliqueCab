@@ -7,6 +7,8 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Devices.Geolocation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -25,6 +27,7 @@ namespace CliqueCab
 	public sealed partial class Requests : Page
 	{
 		ObservableCollection<Product> requestedCabs = null;
+		StatusBar statusbar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
 
 		public Requests()
 		{
@@ -38,6 +41,8 @@ namespace CliqueCab
 		/// This parameter is typically used to configure the page.</param>
 		protected override async void OnNavigatedTo(NavigationEventArgs e)
 		{
+			statusbar.ProgressIndicator.ShowAsync();
+
 			requestedCabs = e.Parameter as ObservableCollection<Product>;
 			Uber uber = new Uber();
 			Geoposition start = await User.GetLocation();
@@ -53,7 +58,9 @@ namespace CliqueCab
 					{
 						if(err.Code == "no_drivers_available")
 						{
-
+							MessageDialog md = new MessageDialog("Not enough drivers available. Please try again in a while.");
+							await md.ShowAsync();
+							Frame.GoBack();
 						}
 						else if(err.Code == "surge")
 						{
@@ -62,6 +69,8 @@ namespace CliqueCab
 					}
 				}
 			}
+
+			statusbar.ProgressIndicator.HideAsync();
 		}
 	}
 }
