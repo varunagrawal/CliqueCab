@@ -154,6 +154,7 @@ namespace CliqueCab
 		private void BestOptionsBtn_Click(object sender, RoutedEventArgs e)
 		{
 			var bestCabOptions = CabOption.GetBestCabOption(products, passengers);
+			ListOfCabs.ItemsSource = new ObservableCollection<Product>(bestCabOptions);
 		}
 
 
