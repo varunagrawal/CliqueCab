@@ -54,6 +54,7 @@ namespace CliqueCab
 			try
 			{
 				passengers = (long)e.Parameter;
+				User.Passengers_Left = passengers;
 			}
 			catch (Exception ex)
 			{

@@ -42,16 +42,17 @@ namespace CliqueCab
 		protected override async void OnNavigatedTo(NavigationEventArgs e)
 		{
 			statusbar.ProgressIndicator.ShowAsync();
+			statusbar.ProgressIndicator.Text = "Requesting cabs...";
 
 			requestedCabs = e.Parameter as ObservableCollection<Product>;
 			Uber uber = new Uber();
 			Geoposition start = await User.GetLocation();
-			Geoposition end = null;
+			Geoposition end = start;
 
 			foreach(Product cab in requestedCabs)
 			{
-				Request r = await uber.Request(cab.Product_Id, start, start);
-
+				Request r = await uber.Request(cab.Product_Id, start, end);
+				
 				if(r.Errors != null)
 				{
 					foreach(Error err in r.Errors)
@@ -68,6 +69,27 @@ namespace CliqueCab
 						}
 					}
 				}
+			}
+
+			List<Request> requests = new List<Request>(User.Requests);
+			long cabs_booked = 0;
+
+			while(requests.Count != 0)
+			{
+				foreach(var req in requests)
+				{
+					var status = await uber.GetRequestStatus(req);
+					if(status.Status == "accepted" || status.Status == "arriving")
+					{
+						requests.Remove(req);
+						cabs_booked += 1;
+					}
+					else if(status.Status == "no_drivers_available" || status.Status == "driver_canceled")
+					{
+						requests.Remove(req);
+					}
+				}
+				
 			}
 
 			statusbar.ProgressIndicator.HideAsync();

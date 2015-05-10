@@ -76,8 +76,8 @@ namespace CliqueCab
 			product_id = Product_Id;
 			start_latitude = start.Coordinate.Point.Position.Latitude.ToString();
 			start_longitude = start.Coordinate.Point.Position.Longitude.ToString();
-			end_latitude = end.Coordinate.Point.Position.Latitude.ToString();
-			end_longitude = end.Coordinate.Point.Position.Longitude.ToString();
+			end_latitude = (end.Coordinate.Point.Position.Latitude+1).ToString();
+			end_longitude = (end.Coordinate.Point.Position.Longitude+1).ToString();
 			surge_confirmation_id = Surge_Confirmation;
 		}
 	}
@@ -166,8 +166,17 @@ namespace CliqueCab
 				{
 
 					string result = await response.Content.ReadAsStringAsync();
-
-					return JsonConvert.DeserializeObject<Request>(result);
+					var res = JsonConvert.DeserializeObject<Request>(result);
+					if(res.Status != "accepted")
+					{
+						User.Requests.Add(res);
+						
+						//builder = new UriBuilder(BaseAddress + string.Format("/v1/requests/{0}", res.Request_Id));
+						//var resp = await client.GetAsync(builder.Uri);
+						//result = await resp.Content.ReadAsStringAsync();
+						//return JsonConvert.DeserializeObject<Request>(result);
+					}
+					return res;
 				}
 			}
 			catch(Exception ex)
@@ -176,6 +185,14 @@ namespace CliqueCab
 			}
 
 			return null;
+		}
+
+		public async Task<Request> GetRequestStatus(Request r)
+		{
+			UriBuilder builder = new UriBuilder(BaseAddress + string.Format("/v1/requests/{0}", r.Request_Id));
+			var resp = await client.GetAsync(builder.Uri);
+			string result = await resp.Content.ReadAsStringAsync();
+			return JsonConvert.DeserializeObject<Request>(result);
 		}
 	}
 
