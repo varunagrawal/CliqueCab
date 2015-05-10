@@ -62,6 +62,26 @@ namespace CliqueCab
 		public float Fee { get; set; }
 	}
 
+	public class CabRequest
+	{
+		public string product_id { get; set; }
+		public string start_latitude { get; set; }
+		public string start_longitude { get; set; }
+		public string end_latitude { get; set; }
+		public string end_longitude { get; set; }
+		public string surge_confirmation_id { get; set; }
+
+		public CabRequest(string Product_Id, Geoposition start, Geoposition end, string Surge_Confirmation = null)
+		{
+			product_id = Product_Id;
+			start_latitude = start.Coordinate.Point.Position.Latitude.ToString();
+			start_longitude = start.Coordinate.Point.Position.Longitude.ToString();
+			end_latitude = end.Coordinate.Point.Position.Latitude.ToString();
+			end_longitude = end.Coordinate.Point.Position.Longitude.ToString();
+			surge_confirmation_id = Surge_Confirmation;
+		}
+	}
+
 	public class Uber
 	{
 		HttpClient client = new HttpClient();
@@ -125,26 +145,17 @@ namespace CliqueCab
 		public async Task<Request> Request(string Product_Id, Geoposition start, Geoposition end, string Surge_Confirmation_Id = null)
 		{
 			UriBuilder builder = new UriBuilder(BaseAddress + "/v1/requests");
-			List<KeyValuePair<string, string>> postParams = new List<KeyValuePair<string,string>>
-			{
-				new KeyValuePair<string, string>("product_id", Product_Id),
-				new KeyValuePair<string, string>("start_latitude", start.Coordinate.Point.Position.Latitude.ToString()),
-				new KeyValuePair<string, string>("start_longitude", start.Coordinate.Point.Position.Longitude.ToString()),
-				new KeyValuePair<string, string>("end_latitude", end.Coordinate.Point.Position.Latitude.ToString()),
-				new KeyValuePair<string, string>("end_longitude", end.Coordinate.Point.Position.Longitude.ToString())
-			};
-
-			if(Surge_Confirmation_Id != null)
-			{
-				postParams.Add(new KeyValuePair<string, string>("start_latitude", start.Coordinate.Point.Position.Latitude.ToString()));
-			}
-
-			HttpContent content = new FormUrlEncodedContent(postParams);
-
+			
+			CabRequest req = new CabRequest(Product_Id, start, end);
+			string body = JsonConvert.SerializeObject(req);
+			HttpContent content = new StringContent(body);
+			content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
 			try
 			{
-				HttpResponseMessage response = await client.PostAsync(builder.Uri, content);
+				client.DefaultRequestHeaders.TryAddWithoutValidation("Accept", "*/*");
 
+				HttpResponseMessage response = await client.PostAsync(builder.Uri, content);
+				var res = await response.Content.ReadAsStringAsync();
 				if (response.StatusCode == HttpStatusCode.OK)
 				{
 					string result = await response.Content.ReadAsStringAsync();
