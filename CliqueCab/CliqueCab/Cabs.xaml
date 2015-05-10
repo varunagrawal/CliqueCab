@@ -44,6 +44,7 @@
 	<Page.BottomAppBar>
 		<CommandBar>
 			<AppBarButton x:Name="BookCabsBtn" Label="Book Cabs" Icon="Accept" Click="BookCabsBtn_Click"/>
+			<AppBarButton x:Name="BestOptionsBtn" Label="Best Options" Icon="Favorite" Click="BestOptionsBtn_Click" />
 		</CommandBar>
 	</Page.BottomAppBar>
 </Page>

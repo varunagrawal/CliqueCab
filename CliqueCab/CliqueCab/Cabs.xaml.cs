@@ -28,7 +28,7 @@ namespace CliqueCab
 	public sealed partial class Cabs : Page
 	{
 		Uber uber = new Uber();
-
+		UberProducts products;
 		StatusBar statusbar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
 		ObservableCollection<Product> selectedCabs = new ObservableCollection<Product>();
 
@@ -89,7 +89,7 @@ namespace CliqueCab
 
 				statusbar.ProgressIndicator.Text = "Getting Cab Options...";
 
-				UberProducts products = await uber.Products(pos.Coordinate.Point.Position.Latitude, pos.Coordinate.Point.Position.Longitude);
+				products = await uber.Products(pos.Coordinate.Point.Position.Latitude, pos.Coordinate.Point.Position.Longitude);
 
 				if(products == null)
 				{
@@ -149,6 +149,11 @@ namespace CliqueCab
 		private void BookCabsBtn_Click(object sender, RoutedEventArgs e)
 		{
 			this.Frame.Navigate(typeof(Requests), ListOfCabs.ItemsSource);
+		}
+
+		private void BestOptionsBtn_Click(object sender, RoutedEventArgs e)
+		{
+			var bestCabOptions = CabOption.GetBestCabOption(products, passengers);
 		}
 
 
