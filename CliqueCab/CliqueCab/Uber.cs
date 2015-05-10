@@ -155,9 +155,16 @@ namespace CliqueCab
 				client.DefaultRequestHeaders.TryAddWithoutValidation("Accept", "*/*");
 
 				HttpResponseMessage response = await client.PostAsync(builder.Uri, content);
-				var res = await response.Content.ReadAsStringAsync();
+
 				if (response.StatusCode == HttpStatusCode.OK)
 				{
+					string result = await response.Content.ReadAsStringAsync();
+
+					return JsonConvert.DeserializeObject<Request>(result);
+				}
+				else if(response.StatusCode == HttpStatusCode.Accepted)
+				{
+
 					string result = await response.Content.ReadAsStringAsync();
 
 					return JsonConvert.DeserializeObject<Request>(result);
