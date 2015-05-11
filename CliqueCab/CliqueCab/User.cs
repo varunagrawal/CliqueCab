@@ -93,7 +93,7 @@ namespace CliqueCab
 
 		public static long Passengers_Left { get; set; }
 
-		public static List<Request> Requests { get; set; }
+		public static List<Request> Requests = new List<Request>();
 
 		public String First_Name { get; set; }
 		public string Last_Name { get; set; }
